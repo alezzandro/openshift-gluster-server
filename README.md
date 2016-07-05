@@ -58,7 +58,7 @@ Noew it's time to create the Gluster DaemonSet entity:
 
 Then we can monitor the creation with command:
 ```
-oc get pods -w
+# oc get pods -w
 ```
 
 Just for example I'll show you the result on my environment:
