@@ -15,11 +15,11 @@ https://blog.openshift.com/openshift-3-2-whats-new/
 I've just started playing with them and the great functionality: "DaemonSet", introduced in version OpenShift 3.2.
 
 
-In the following steps I'll show you how to setup a glusterd privileged container on one or more OpenShift managed node using local storage to serve distributed and highly available storage for you OpenShift deployments.
+In the following steps I'll show you how to setup a glusterd privileged container on one or more OpenShift managed node using local storage to serve replicated and highly available storage for you OpenShift deployments.
 
 This privileged container will mount a mountpoint on your openshift node and access to host real network. For that matter you should ensure that the container does not conflict with any already used port it may needs. I've also setup an ansible playbook that opens up the required ports on the chosen (default all) openshift nodes.
 
-At end you'll have one or multiple distributed gluster volume that you can mount in your running pod and/or you can use for creating Persistent Volumes (pv) accessed by pod through Persistent Volume Claim (pvc).
+At end you'll have one or multiple replicated gluster volume that you can mount in your running pod and/or you can use for creating Persistent Volumes (pv) accessed by pod through Persistent Volume Claim (pvc).
 
 <b>PLEASE NOTE:</b>
 
