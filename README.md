@@ -28,6 +28,16 @@ At end you'll have one or multiple distributed gluster volume that you can mount
 <br>
 ### Configuration
 
+First of all take clone my git repository to download all the required file:
+```
+# git clone https://github.com/alezzandro/openshift-gluster-server
+```
+
+Run the init.yml playbook in case you need to setup your managed nodes (directories creation and firewall rules setup):
+```
+# ansible-playbook init.yml
+```
+
 Create a new project for holding the new gluster pods that we'll create:
 ```
 # oc new-project gluster
