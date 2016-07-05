@@ -10,9 +10,9 @@ Thanks to the latest release of glusterd container by Red Hat: [here](https://ww
 And the recent release of centos glusterd container version: [here](https://hub.docker.com/r/gluster/gluster-centos/)
 
 <i>If you're interested in the RHEL7 based container you may use the file "<b>gluster-ds_rh.yml</b>" on your OpenShift Enterprise platform.</i><br>
-https://blog.openshift.com/openshift-3-2-whats-new/
 
 I've just started playing with them and the great functionality: "DaemonSet", introduced in version OpenShift 3.2.
+https://blog.openshift.com/openshift-3-2-whats-new/
 
 
 In the following steps I'll show you how to setup a glusterd privileged container on one or more OpenShift managed node using local storage to serve replicated and highly available storage for you OpenShift deployments.
