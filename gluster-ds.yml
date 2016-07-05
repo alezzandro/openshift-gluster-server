@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    provider: openshift
+    component: gluster
+  name: "gluster"
+spec:
+  selector:
+    matchLabels:
+      provider: openshift
+      component: gluster
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      minReadySeconds: 600
+  template:
+    metadata:
+      name: gluster
+      labels:
+        provider: openshift
+        component: gluster
+    spec:
+      containers:
+        - name: gluster
+          image: gluster/gluster-centos:latest 
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: brickpath
+              mountPath: "/mnt/brick1"
+            - name: gluster-varlib
+              mountPath: "/var/lib/glusterd"
+          securityContext:
+            privileged: true
+      hostDirVolumePlugin: true
+      hostNetwork: true
+      nodeSelector:
+        app: gluster
+      serviceAccount: gluster
+      serviceAccountName: gluster
+      volumes:
+        - name: brickpath
+          hostPath:
+            path: "/mnt/brick1"
+        - name: gluster-varlib
+          hostPath:
+            path: "/mnt/glusterd-varlib"
+

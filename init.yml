@@ -1,0 +1,34 @@
+- hosts: all
+  become: yes
+  tasks:
+        - name: Create /mnt/brick1 directory
+          file: path=/mnt/brick1 state=directory mode=0777
+
+        - name: Create first volume directory on brick1
+          file: path=/mnt/brick1/testvolume state=directory mode=0777
+
+        - name: Create /mnt/glusterd-varlib directory
+          file: path=/mnt/glusterd-varlib state=directory mode=0777
+
+        - name: enabling firewall tcp communication for every gluster node
+          shell: "iptables -C INPUT -p tcp -m state --state NEW --dport {{item}} -j ACCEPT || iptables -I INPUT -p tcp -m state --state NEW --dport {{item}} -j ACCEPT"
+          with_items: [ 111, 139, 445, 965, 2049, 24007, 24009, 38465, 38466, 38468, 38469, 39543, 49152, 49153, 49154, 55863 ]
+
+        - name: saving firewall tcp communication for every gluster node
+          lineinfile: dest=/etc/sysconfig/iptables
+                  regexp="^-A INPUT -p tcp -m state --state NEW --dport {{item}} -j ACCEPT$"
+                  line="-A INPUT -p tcp -m state --state NEW --dport {{item}} -j ACCEPT"
+                  insertafter="^:OS_FIREWALL_ALLOW - \[\d*:\d*\]$"
+          with_items: [ 111, 139, 445, 965, 2049, 24007, 24009, 38465, 38466, 38468, 38469, 39543, 49152, 49153, 49154, 55863 ]
+
+        - name: enabling firewall udp communication for every gluster node
+          shell: "iptables -C INPUT -p udp -m state --state NEW --dport {{item}} -j ACCEPT || iptables -I INPUT -p udp -m state --state NEW --dport {{item}} -j ACCEPT"
+          with_items: [ 111, 963 ]
+
+        - name: saving firewall udp communication for every gluster node
+          lineinfile: dest=/etc/sysconfig/iptables
+                  regexp="^-A INPUT -p udp -m state --state NEW --dport {{item}} -j ACCEPT$"
+                  line="-A INPUT -p udp -m state --state NEW --dport {{item}} -j ACCEPT"
+                  insertafter="^:OS_FIREWALL_ALLOW - \[\d*:\d*\]$"
+          with_items: [ 111, 963 ]
+
