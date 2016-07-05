@@ -71,6 +71,8 @@ gluster-wsek1   1/1       Running   0          2h
 ```
 
 After that we can then access to one of the created container to start the peer probing process:
+
+<i>[Please note the ip addresses I'll use are the real ip addresses of two of my managed nodes]</i>
 ```
 # oc rsh gluster-bthb0
 # gluster peer probe 172.18.212.29
